@@ -1,5 +1,5 @@
-import tailwindcssAnimate from 'tailwindcss-animate'
 import typography from '@tailwindcss/typography'
+import tailwindcssAnimate from 'tailwindcss-animate'
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -82,16 +82,43 @@ const config = {
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          100: 'hsl(var(--primary-100))',
+          200: 'hsl(var(--primary-200))',
+          300: 'hsl(var(--primary-300))',
+          400: 'hsl(var(--primary-400))',
+          500: 'hsl(var(--primary-500))',
+          600: 'hsl(var(--primary-600))',
+          700: 'hsl(var(--primary-700))',
+          800: 'hsl(var(--primary-800))',
+          900: 'hsl(var(--primary-900))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         ring: 'hsl(var(--ring))',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
+          50: 'hsl(var(--secondary-50))',
+          100: 'hsl(var(--secondary-100))',
+          200: 'hsl(var(--secondary-200))',
+          300: 'hsl(var(--secondary-300))',
+          400: 'hsl(var(--secondary-400))',
+          500: 'hsl(var(--secondary-500))',
+          600: 'hsl(var(--secondary-600))',
+          700: 'hsl(var(--secondary-700))',
+          800: 'hsl(var(--secondary-800))',
+          900: 'hsl(var(--secondary-900))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        'color-primary-blue': 'hsl(var(--color-primary-blue))',
+        'color-primary-teal': 'hsl(var(--color-primary-teal))',
+        'color-accent-yellow': 'hsl(var(--color-accent-yellow))',
+        'color-accent-orange': 'hsl(var(--color-accent-orange))',
+        'color-neutral-white': 'hsl(var(--color-neutral-white))',
+        'color-neutral-light-gray': 'hsl(var(--color-neutral-light-gray))',
+        'color-text-dark-gray': 'hsl(var(--color-text-dark-gray))',
+        'color-text-medium-gray': 'hsl(var(--color-text-medium-gray))',
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],

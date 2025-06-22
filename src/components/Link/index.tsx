@@ -3,34 +3,40 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
+import type { Page } from '@/payload-types'
 
 type CMSLinkType = {
-  appearance?: 'inline' | ButtonProps['variant']
+  variant?: 'inline' | ButtonProps['variant']
   children?: React.ReactNode
   className?: string
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Post | string | number
+    relationTo: 'pages'
+    value: Page | string | number
   } | null
-  size?: ButtonProps['size'] | null
+  size?: ButtonProps['size']
   type?: 'custom' | 'reference' | null
   url?: string | null
+  appearance?: ButtonProps['appearance']
+  icon?: ButtonProps['icon']
+  iconPosition?: ButtonProps['iconPosition']
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const {
     type,
-    appearance = 'inline',
+    variant = 'inline',
     children,
     className,
     label,
     newTab,
     reference,
+    appearance,
     size: sizeFromProps,
     url,
+    icon,
+    iconPosition,
   } = props
 
   const href =
@@ -42,25 +48,42 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
-  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+  const size = variant === 'link' ? 'clear' : sizeFromProps
 
-  /* Ensure we don't break any styles set by richText */
-  if (appearance === 'inline') {
+  if (variant === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+      <Link
+        href={href || url || ''}
+        className={cn(
+          'text-primary underline hover:no-underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+          className,
+        )}
+        {...(newTab && { target: '_blank', rel: 'noopener noreferrer' })}
+      >
+        <span>
+          {label && label}
+          {children && children}
+        </span>
       </Link>
     )
+  } else {
+    return (
+      <Button
+        asChild={false}
+        className={className}
+        newTab={newTab}
+        size={size}
+        variant={variant}
+        appearance={appearance}
+        icon={icon}
+        iconPosition={iconPosition}
+        href={href || url || ''}
+      >
+        <span>
+          {label && label}
+          {children && children}
+        </span>
+      </Button>
+    )
   }
-
-  return (
-    <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
-      </Link>
-    </Button>
-  )
 }

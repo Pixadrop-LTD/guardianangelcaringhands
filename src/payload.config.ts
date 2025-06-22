@@ -1,20 +1,22 @@
 // storage-adapter-import-placeholder
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 
-import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
+import sharp from 'sharp' // sharp-import
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
+import { defaultLexical } from '@/fields/defaultLexical'
+import { Banner } from './blocks/Banner/config'
+import { CaseStudies } from './blocks/CaseStudies/config'
+import { YouTubeBlock } from './blocks/YouTubeBlock/config'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
+import { Preference } from './collections/Preference'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -64,7 +66,7 @@ export default buildConfig({
       url: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Media, Users, Preference],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
@@ -91,4 +93,5 @@ export default buildConfig({
     },
     tasks: [],
   },
+  blocks: [Banner, YouTubeBlock, CaseStudies],
 })

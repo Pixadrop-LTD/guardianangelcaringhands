@@ -1,18 +1,22 @@
 import type { CollectionConfig } from 'payload'
 
+import { slugField } from '@/fields/slug'
+import { hero } from '@/heros/config'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { hero } from '@/heros/config'
-import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
+import { Banner } from '@/blocks/Banner/config'
+import { CallToAction } from '@/blocks/CallToAction/config'
+import { CaseStudies } from '@/blocks/CaseStudies/config'
+import { Content } from '@/blocks/Content/config'
+import { Highlights } from '@/blocks/Highlights/config'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { ProcessFlow } from '@/blocks/ProcessFlow/config'
+import { Statistics } from '@/blocks/Statistics/config'
+import { YouTubeBlock } from '@/blocks/YouTubeBlock/config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -75,7 +79,17 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                Highlights,
+                CallToAction,
+                Content,
+                MediaBlock,
+                YouTubeBlock,
+                Banner,
+                Statistics,
+                CaseStudies,
+                ProcessFlow,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

@@ -2,7 +2,6 @@ import type { Field } from 'payload'
 
 import {
   FixedToolbarFeature,
-  HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
@@ -35,23 +34,42 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Home Hero',
+          value: 'homeHero',
+        },
       ],
       required: true,
     },
     {
-      name: 'richText',
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      required: true,
+      admin: {
+        condition: (_, { type } = {}) => type === 'homeHero',
+      },
+    },
+    {
+      name: 'description',
+      label: 'Description',
       type: 'richText',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
+          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
-      label: false,
+      admin: {
+        condition: (_, { type } = {}) => type === 'homeHero',
+      },
+    },
+    {
+      name: 'youTubeVideoId',
+      label: 'YouTube Video ID',
+      type: 'text',
+      admin: {
+        condition: (_, { type } = {}) => type === 'homeHero',
+      },
     },
     linkGroup({
       overrides: {
@@ -62,7 +80,7 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'homeHero'].includes(type),
       },
       relationTo: 'media',
       required: true,

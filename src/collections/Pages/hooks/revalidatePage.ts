@@ -1,43 +1,62 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { Page } from '../../../payload-types'
 
-export const revalidatePage: CollectionAfterChangeHook<Page> = ({
+const safeRevalidate = async (path: string, context: any) => {
+  // Skip revalidation during seeding
+  if (context?.isSeeding) {
+    return
+  }
+
+  try {
+    // Use fetch to trigger revalidation through the API route
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+    const revalidateUrl = `${baseUrl}/api/revalidate?path=${encodeURIComponent(path)}`
+
+    await fetch(revalidateUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  } catch (error) {
+    // Only log in non-seeding contexts
+    if (!context?.isSeeding) {
+      console.warn(`Failed to revalidate path: ${path}`, error)
+    }
+  }
+}
+
+export const revalidatePage: CollectionAfterChangeHook<Page> = async ({
   doc,
   previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
-    if (doc._status === 'published') {
+    // Always revalidate the current page if it has a slug
+    if (doc.slug) {
       const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
-
       payload.logger.info(`Revalidating page at path: ${path}`)
-
-      revalidatePath(path)
-      revalidateTag('pages-sitemap')
+      await safeRevalidate(path, context)
     }
 
-    // If the page was previously published, we need to revalidate the old path
-    if (previousDoc?._status === 'published' && doc._status !== 'published') {
+    // If the page was previously published and had a different slug, revalidate that too
+    if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
       const oldPath = previousDoc.slug === 'home' ? '/' : `/${previousDoc.slug}`
-
       payload.logger.info(`Revalidating old page at path: ${oldPath}`)
-
-      revalidatePath(oldPath)
-      revalidateTag('pages-sitemap')
+      await safeRevalidate(oldPath, context)
     }
   }
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { context } }) => {
-  if (!context.disableRevalidate) {
-    const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
-    revalidatePath(path)
-    revalidateTag('pages-sitemap')
+export const revalidateDelete: CollectionAfterDeleteHook<Page> = async ({
+  doc,
+  req: { context },
+}) => {
+  if (!context.disableRevalidate && doc?.slug) {
+    const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
+    await safeRevalidate(path, context)
   }
-
   return doc
 }

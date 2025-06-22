@@ -1,0 +1,42 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+The app is built using Payload CMS and adheres to Payload Design practices. The context for all design, UX, and interaction rules—including cursor behavior—is already defined in the .specs folder.
+
+When implementing or updating app, always:
+
+Review and follow the context defined in:
+
+.specs/summary.md
+
+.specs/structure.md
+
+.specs/features.md
+
+.specs/concept.md
+
+.specs/wireframes.md 
+
+.specs/guidelines.md 
+
+Use Context7 for all Payload documentation to ensure consistency with the design system.
+
+Use payload version 3.40.0
+
+Always use shadcn for components where possible, Use Context7 for all Shadcn documentation to ensure best practices for shadcn.
+
+Always take time to study the file strucutre ad the codebase before executing anything. So that you dont apply the code in wrong places. 
+
+Always apply the design guidelines defined in guidelines.md to the entire project. This includes theme colors, typography, component design, accessibility etc.
+
+Apply best practices from official Payload documentation to maintain code quality, accessibility, and compatibility across the admin panel and front end.
+
+For all icons use the latest version of React Icons lirary use context7
+
+Before applying in style check all css files.
+
+All customizations should be consistent with Payload’s recommended practices.
+
+Make sure you follow the same coding style throughout the enite project.
