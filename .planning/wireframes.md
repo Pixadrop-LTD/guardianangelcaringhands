@@ -33,9 +33,10 @@ The wireframes are designed to be responsive, accessible, and user-friendly, wit
 ## Design System Overview
 
 ### Color Palette
-- **Primary Colors**: Warm, trustworthy blues (#2D5D7B) and teals (#45A29E) symbolizing stability and care
-- **Accent Colors**: Hopeful yellows (#FFC857) and energetic oranges (#FF8C42) for CTAs and highlights
-- **Neutral Base**: Soft whites (#F9F9F9) and light grays (#E6E6E6) for clean, accessible backgrounds
+- **Primary Colors**: #211DE1
+- **Secondary Colors**:  #00ADEF
+- **Accent Colors**: #09CC7F
+- **Neutral Base**:  #002D5B
 - **Text Colors**: Dark gray (#333333) for primary text, medium gray (#666666) for secondary text
 
 ### Typography
