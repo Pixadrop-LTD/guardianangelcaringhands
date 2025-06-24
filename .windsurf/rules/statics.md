@@ -59,7 +59,7 @@ Your task is to develop a modern, fully functional HTML-based website using Tail
 
 ## IMPORTANT NOTE
 
-- The entire website must be fully designed and stored in the .static folder, including all HTML files, JavaScript files, and assets..
+- The entire website must be fully designed and stored in the docs folder, including all HTML files, JavaScript files, and assets..
 
 ---
 
